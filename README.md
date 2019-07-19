@@ -1,2 +1,2 @@
 # giphy-homework
-Assingment using the giphy api 
+Assignment using the giphy api 
