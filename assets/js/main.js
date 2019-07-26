@@ -1,4 +1,4 @@
-var buttonsArray = ["Ford", "Toyota", "Subaru", "Holden"]
+var buttonsArray = ["Ford", "Toyota", "Subaru", "Skoda"]
 
 $(document).ready(function(){
     // Function to render buttons to DOM from buttonsArray
@@ -35,15 +35,41 @@ $(document).ready(function(){
             var images = resp.data
 
             // Append returned images to the DOM
-            images.map((image) => {
-                var appendImage = $('<img>').attr({class : "rounded-circle", src : image.images.fixed_height_small.url, width : 100, height : 100})
+            images.forEach((image) => {
+
+                var appendImage = $('<img>').attr({class : "rounded-circle", 
+                                                   id : "giphy",
+                                                   src : image.images.fixed_height_still.url, 
+                                                   "data-still" : image.images.fixed_height_still.url, 
+                                                   "data-anim" : image.images.fixed_height_small.url,
+                                                   animated : "false", 
+                                                   width : 100, 
+                                                   height : 100
+                                                })
+
+
                 var appendSpan = $('<span>').text(`Rating : ${image.rating}`)
                 $('.gif-frame').append([appendImage, appendSpan])
+
+
+            });
+
+
+            $('img').on('click', function(){
+                if($(this).attr('animated')=== "false"){
+                    $(this).attr({src : $(this).attr("data-anim"), animated : "true"})
+                }
+                else{
+                    $(this).attr({src : $(this).attr("data-still"), animated : "false"})
+                }
+        
             })
+    
         }
-            
         )
+        
     }
+
 
     $('.new-button-form').on("submit", function(event){
         event.preventDefault();
